@@ -16,6 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from bug_tracker import views
+from bug_tracker.models import Ticket
+
+try:
+    admin.site.register(Ticket)
+except Exception:
+    pass
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.index, name='homepage'),
+    path('login/', views.login_view),
+    path('createuser/', views.creation_view),
+    path('addticket/', views.add_ticket_view)
 ]

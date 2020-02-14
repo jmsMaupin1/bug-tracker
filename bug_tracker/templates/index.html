@@ -1,11 +1,118 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='{% static "css/index.css" %}' rel='stylesheet' />
     <title>Document</title>
 </head>
 <body>
-    <h1>List of bugs tracking tickets</h1>
+    <Header>
+        <h1>Tickets of issues and bugs</h1>
+    </Header>
+    <div class='container'>
+        <!-- New Tickets -->
+        <div class='card'>
+            <div class='card-container'>
+                <div class='card-header'>
+                    <div class="card-header-title">
+                        <div class='circle'>{{ new_tickets|length }}</div>
+                        New
+                    </div>
+                    <div>
+                        <a class="add-issue" href="/addticket">
+                            <i class="plus"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class='card-body'>
+                    {% for ticket in new_tickets %}
+                    <div class="issue">
+                        <div class="issue-header">
+                            <strong>{{ ticket.title }}</strong>
+                            <div class="menu_elipses"></div>
+                        </div>
+                        <div class="issue-body">
+                            #{{ ticket.id }} opened by {{ ticket.submitted_by }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- In Progress Tickets -->
+        <div class='card'>
+            <div class='card-container'>
+                <div class='card-header'>
+                    <div class="card-header-title">
+                        <div class='circle'>{{ in_prog_tickets|length }}</div>
+                        In Progress
+                    </div>
+                </div>
+                <div class='card-body'>
+                    {% for ticket in in_prog_tickets %}
+                    <div class="issue">
+                        <div class="issue-header">
+                            <strong>{{ ticket.title }}</strong>
+                            <div class="menu_elipses"></div>
+                        </div>
+                        <div class="issue-body">
+                            #{{ ticket.id }} opened by {{ ticket.submitted_by }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- Done Tickets -->
+        <div class='card'>
+            <div class='card-container'>
+                <div class='card-header'>
+                    <div class="card-header-title">
+                        <div class='circle'>{{ done_tickets|length }}</div>
+                        Done
+                    </div>
+                </div>
+                <div class='card-body'>
+                    {% for ticket in done_tickets %}
+                    <div class="issue">
+                        <div class="issue-header">
+                            <strong>{{ ticket.title }}</strong>
+                            <div class="menu_elipses"></div>
+                        </div>
+                        <div class="issue-body">
+                            #{{ ticket.id }} opened by {{ ticket.submitted_by }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- Invalid Tickets -->
+        <div class='card'>
+            <div class='card-container'>
+                <div class='card-header'>
+                    <div class="card-header-title">
+                        <div class='circle'>{{ invalid_tickets|length }}</div>
+                        Invalid
+                    </div>
+                </div>
+                <div class='card-body'>
+                    {% for ticket in invalid_tickets %}
+                    <div class="issue">
+                        <div class="issue-header">
+                            <strong>{{ ticket.title }}</strong>
+                            <div class="menu_elipses"></div>
+                        </div>
+                        <div class="issue-body">
+                            #{{ ticket.id }} opened by {{ ticket.submitted_by }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
