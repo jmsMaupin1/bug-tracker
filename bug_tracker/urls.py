@@ -29,5 +29,6 @@ urlpatterns = [
     path('', views.index, name='homepage'),
     path('login/', views.login_view),
     path('createuser/', views.creation_view),
-    path('addticket/', views.add_ticket_view)
+    path('addticket/', views.add_ticket_view),
+    path('edit/<int:ticket_id>', views.edit_ticket_view)
 ]

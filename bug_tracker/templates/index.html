@@ -21,7 +21,7 @@
                         New
                     </div>
                     <div>
-                        <a class="add-issue" href="/addticket">
+                        <a class="add-issue no-decoration" href="/addticket">
                             <i class="plus"></i>
                         </a>
                     </div>
@@ -31,7 +31,9 @@
                     <div class="issue">
                         <div class="issue-header">
                             <strong>{{ ticket.title }}</strong>
-                            <div class="menu_elipses"></div>
+                            <a class="no-decoration" href="/edit/{{ticket.id}}">
+                                <div class="menu_elipses"></div>
+                            </a>
                         </div>
                         <div class="issue-body">
                             #{{ ticket.id }} opened by {{ ticket.submitted_by }}
@@ -55,7 +57,9 @@
                     <div class="issue">
                         <div class="issue-header">
                             <strong>{{ ticket.title }}</strong>
-                            <div class="menu_elipses"></div>
+                            <a class="no-decoration" href="/edit/{{ticket.id}}">
+                                <div class="menu_elipses"></div>
+                            </a>
                         </div>
                         <div class="issue-body">
                             #{{ ticket.id }} opened by {{ ticket.submitted_by }}
@@ -79,7 +83,9 @@
                     <div class="issue">
                         <div class="issue-header">
                             <strong>{{ ticket.title }}</strong>
-                            <div class="menu_elipses"></div>
+                            <a class="no-decoration" href="/edit/{{ticket.id}}">
+                                <div class="menu_elipses"></div>
+                            </a>
                         </div>
                         <div class="issue-body">
                             #{{ ticket.id }} opened by {{ ticket.submitted_by }}
@@ -103,7 +109,9 @@
                     <div class="issue">
                         <div class="issue-header">
                             <strong>{{ ticket.title }}</strong>
-                            <div class="menu_elipses"></div>
+                            <a class="no-decoration" href="/edit/{{ticket.id}}">
+                                <div class="menu_elipses"></div>
+                            </a>
                         </div>
                         <div class="issue-body">
                             #{{ ticket.id }} opened by {{ ticket.submitted_by }}

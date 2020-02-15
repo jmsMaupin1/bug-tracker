@@ -1,12 +1,12 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import authenticate, logout
 from django.contrib.auth.decorators import login_required
 
 from custom_user.models import MyCustomUser
 
 from bug_tracker.models import Ticket
-from bug_tracker.forms import CreationForm, LoginForm, AddTicketForm
+from bug_tracker.forms import CreationForm, LoginForm, AddTicketForm, EditTicketForm
 
 @login_required()
 def index(request):
@@ -21,6 +21,34 @@ def index(request):
         'done_tickets': done_tickets,
         'invalid_tickets': invalid_tickets
 
+    })
+
+
+@login_required()
+def edit_ticket_view(request, ticket_id):
+    ticket = None
+    form = None
+
+    try:
+        ticket = Ticket.objects.get(id=ticket_id)
+    except Exception:
+        return HttpResponseRedirect(reverse('homepage'))
+
+    if request.method == 'POST':
+        form = EditTicketForm(request.POST, instance=ticket)
+
+        if form.is_valid():
+            ticket = form.save(commit=False)
+            if ticket.ticket_status == 'DONE':
+                user = MyCustomUser.objects.get(id=request.user.id)
+                ticket.completed_by = user
+            ticket.save()
+            return HttpResponseRedirect(reverse('homepage'))
+    else:
+        form = EditTicketForm(instance=ticket)
+    
+    return render(request, 'generic_form.html', {
+        'form': form
     })
 
 
@@ -43,8 +71,21 @@ def add_ticket_view(request):
 
 @login_required()
 def creation_view(request):
+    form = None
+    if request.method == 'POST':
+        form = CreationForm(request.POST)
+
+        if form.is_valid():
+            data = form.cleaned_data
+            user = MyCustomUser.objects.create_user(
+                data['username'], data['email'], data['password1']
+            )
+            return HttpResponseRedirect(reverse('homepage'))
+    else:
+        form = CreationForm()
+
     return render(request, 'generic_form.html', {
-        'form': CreationForm()
+        'form': form
     })
 
 
