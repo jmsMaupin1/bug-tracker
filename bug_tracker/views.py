@@ -70,6 +70,27 @@ def add_ticket_view(request):
 
 
 @login_required()
+def ticket_detail_view(request, ticket_id):
+    ticket = None
+    try:
+        ticket = Ticket.objects.get(id=ticket_id)
+    except Exception:
+        return HttpResponseRedirect(reverse('homepage'))
+
+    ticket_states = {
+        "NEW": "New",
+        "INPROG": "In Progress",
+        "DONE": "Done",
+        "INVALID": "Invalid"
+    }
+
+    return render(request, 'ticket_detail.html', {
+        'ticket': ticket,
+        "status": ticket_states[ticket.ticket_status]
+    })
+
+
+@login_required()
 def creation_view(request):
     form = None
     if request.method == 'POST':

@@ -1,3 +1,5 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,10 +9,24 @@
     <title>Document</title>
 </head>
 <body>
+    <header>
+        <div class="row">
+            <div class="badge {{ticket.ticket_status}}">
+                {{ status }}
+            </div>
+            <span>
+                Opened on {{ ticket.date_submitted }} by:
+                <a href="">{{ticket.submitted_by}}</a>
+            </span>
+            <a class="edit" href="/edit/{{ticket.id}}">Edit</a>
+        </div>
+        <hr/>
+    </header>
     <div class="container">
-        <header>
-            <h1>Ticket Title</h1>
-        </header>
+        <div class="title">
+            <h1>{{ ticket.title }}</h1>
+        </div>
+        {{ ticket.description }}
     </div>
 </body>
 </html>
