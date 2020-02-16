@@ -90,6 +90,19 @@ def creation_view(request):
 
 
 def login_view(request):
+    form = None
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+
+        if form.is_valid():
+            data = form.cleaned_data
+            user = authenticate(username=data['username'], password=data['password'])
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect(reverse='homepage')
+        else:
+            form=LoginForm()
+
     return render(request, 'generic_form.html', {
-        'form': LoginForm()
+        'form': form
     })
