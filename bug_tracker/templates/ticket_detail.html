@@ -16,7 +16,7 @@
             </div>
             <span>
                 Opened on {{ ticket.date_submitted }} by:
-                <a href="">{{ticket.submitted_by}}</a>
+                <a href="/user/{{ticket.submitted_by.id}}">{{ticket.submitted_by}}</a>
             </span>
             <a class="edit" href="/edit/{{ticket.id}}">Edit</a>
         </div>

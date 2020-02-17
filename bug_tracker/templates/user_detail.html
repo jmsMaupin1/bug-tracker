@@ -5,20 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='{% static "css/index.css" %}' rel='stylesheet' />
-    <title>Bug Tracker</title>
+    <title>Document</title>
 </head>
 <body>
     <Header>
-        <h1>Tickets of issues and bugs</h1>
+        <h1>{{ user }}'s Profile</h1>
     </Header>
     <div class='container'>
-        <!-- New Tickets -->
+        <!-- Submitted by tickets -->
         <div class='card'>
             <div class='card-container'>
                 <div class='card-header'>
                     <div class="card-header-title">
-                        <div class='circle'>{{ new_tickets|length }}</div>
-                        New
+                        <div class='circle'>{{ submitted_tickets|length }}</div>
+                        Submitted Tickets
                     </div>
                     <div>
                         <a class="add-issue no-decoration" href="/addticket">
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class='card-body'>
-                    {% for ticket in new_tickets %}
+                    {% for ticket in submitted_tickets %}
                     <div class="issue">
                         <div class="issue-header">
                             <strong>
@@ -50,17 +50,17 @@
                 </div>
             </div>
         </div>
-        <!-- In Progress Tickets -->
+        <!-- Assigned to tickets -->
         <div class='card'>
             <div class='card-container'>
                 <div class='card-header'>
                     <div class="card-header-title">
-                        <div class='circle'>{{ in_prog_tickets|length }}</div>
-                        In Progress
+                        <div class='circle'>{{ assigned_tickets|length }}</div>
+                        Assigned Tickets
                     </div>
                 </div>
                 <div class='card-body'>
-                    {% for ticket in in_prog_tickets %}
+                    {% for ticket in assigned_tickets %}
                     <div class="issue">
                         <div class="issue-header">
                             <strong>
@@ -83,50 +83,17 @@
                 </div>
             </div>
         </div>
-        <!-- Done Tickets -->
+        <!-- Completed by tickets -->
         <div class='card'>
             <div class='card-container'>
                 <div class='card-header'>
                     <div class="card-header-title">
-                        <div class='circle'>{{ done_tickets|length }}</div>
-                        Done
+                        <div class='circle'>{{ closed_tickets|length }}</div>
+                        Closed Tickets
                     </div>
                 </div>
                 <div class='card-body'>
-                    {% for ticket in done_tickets %}
-                    <div class="issue">
-                        <div class="issue-header">
-                            <strong>
-                                <a class="no-decoration" href="/ticket/{{ticket.id}}">
-                                    {{ ticket.title }}
-                                </a>
-                            </strong>
-                            <a class="no-decoration" href="/edit/{{ticket.id}}">
-                                <div class="menu_elipses"></div>
-                            </a>
-                        </div>
-                        <div class="issue-body">
-                            #{{ ticket.id }} opened by 
-                            <a class="no-decoration" href="/user/{{ticket.submitted_by.id}}">
-                                {{ ticket.submitted_by }}
-                            </a>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        <!-- Invalid Tickets -->
-        <div class='card'>
-            <div class='card-container'>
-                <div class='card-header'>
-                    <div class="card-header-title">
-                        <div class='circle'>{{ invalid_tickets|length }}</div>
-                        Invalid
-                    </div>
-                </div>
-                <div class='card-body'>
-                    {% for ticket in invalid_tickets %}
+                    {% for ticket in closed_tickets %}
                     <div class="issue">
                         <div class="issue-header">
                             <strong>

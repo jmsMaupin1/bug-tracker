@@ -31,5 +31,6 @@ urlpatterns = [
     path('createuser/', views.creation_view),
     path('addticket/', views.add_ticket_view),
     path('edit/<int:ticket_id>', views.edit_ticket_view),
-    path('ticket/<int:ticket_id>', views.ticket_detail_view)
+    path('ticket/<int:ticket_id>', views.ticket_detail_view),
+    path('user/<int:user_id>', views.user_detail_view),
 ]

@@ -91,6 +91,28 @@ def ticket_detail_view(request, ticket_id):
 
 
 @login_required()
+def user_detail_view(request, user_id):
+    user = None
+    submitted_tickets = None
+    assigned_tickets = None
+    closed_tickets = None
+
+    try:
+        user = MyCustomUser.objects.get(id=user_id)
+        submitted_tickets = Ticket.objects.filter(submitted_by=user)
+        assigned_tickets = Ticket.objects.filter(assigned_to=user)
+        closed_tickets = Ticket.objects.filter(completed_by=user)
+    except Exception as e:
+        print(e)
+    
+    return render(request, 'user_detail.html', {
+        'user': user,
+        'submitted_tickets': submitted_tickets,
+        'assigned_tickets': assigned_tickets,
+        'closed_tickets': closed_tickets
+    })
+
+@login_required()
 def creation_view(request):
     form = None
     if request.method == 'POST':
